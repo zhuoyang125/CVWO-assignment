@@ -87,6 +87,7 @@ GEM
     nio4r (2.5.4)
     nokogiri (1.10.10-x64-mingw32)
       mini_portile2 (~> 2.4.0)
+    pg (1.2.3-x64-mingw32)
     puma (5.1.1)
       nio4r (~> 2.0)
     rack (2.2.3)
@@ -145,6 +146,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
+  pg (~> 1.2, >= 1.2.3)
   puma (~> 5.0)
   rack-cors
   rails (~> 6.1.0)
