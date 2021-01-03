@@ -3,6 +3,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 import Add from "./Add";
 import List from "./List";
 
+
 function Navbar(){
 
     const [searchMode, setSearchMode] = useState(false);
@@ -36,24 +37,21 @@ function Navbar(){
         <div>
         <nav class="navbar navbar-expand-lg navbar-dark header">
         <div class="container-fluid">
-            <a class="navbar-brand">Taskify</a>
+            <a class="navbar-brand"><strong>Taskify</strong></a>
             <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <Link to="/" class="nav-link active"><strong>Tasks</strong></Link>
+                    <Link to="/" class="nav-link active fs-5">Tasks</Link>
                 </li>
                 <li class="nav-item">
-                    <Link to="/add" class="nav-link active">Add Task</Link>
+                    <Link to="/add" class="nav-link active fs-5">Add</Link>
                 </li>
             </ul>
-            
-            
             </div>
             <form class="d-flex">
                 <input onChange={handleSearchChange} class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={query} />
-                <button onClick={searchTask} class="btn btn-outline-light" >Search</button>
+                <button onClick={searchTask} class="btn btn-primary"><Link to="/" style={{color: 'white', textDecoration: 'none'}}>Search</Link></button>
             </form>
-            
             
         </div>
         </nav>

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Update from "./Update";
+import Alert from "./Alert";
+import { animateScroll as scroll } from "react-scroll";
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 
 function List(props){
 
@@ -16,6 +19,8 @@ function List(props){
     const [listOfTasks, setListOfTasks] = useState([]);
 
     const [listOfFilteredTasks, setListOfFilteredTasks] = useState([]);
+
+    const [deletedTask, setDeletedTask] = useState("");
 
     function reset(){
         setUpdateMode(false);
@@ -43,6 +48,7 @@ function List(props){
     }
 
     function selectUpdate(taskItem) {
+        scroll.scrollToBottom({duration: 300, smooth: true});
         setTaskToUpdate(taskItem);
         setUpdateMode(true);
     }
@@ -53,13 +59,17 @@ function List(props){
         let late = new Date(taskItem.due_date) < current_date;
 
         return (
-            <div>
-                <h3 style={{color: late ? "red" : "black"}}>{taskItem.todo_title}</h3>
-                <h5>{taskItem.due_date}</h5>
-                <h5>{taskItem.todo_tag}</h5>
-                <button onClick={() => deleteTask(taskItem)}>Delete</button>
-                <button onClick={() => selectUpdate(taskItem)}>Update</button>
-                {props.searchMode ? <button onClick={() => reset() }>Back</button> : null}
+            <div class="item">
+                <h5 style={{color: late ? "red" : "black"}}>{taskItem.todo_title} &nbsp;<span class="badge rounded-pill">{taskItem.todo_tag}</span></h5>
+                <br/>
+                <div class="date">
+                    
+                    <p style={{color: late ? "red" : "black"}}><CalendarTodayIcon fontSize="small" /> &nbsp;{taskItem.due_date}</p>
+                </div>                
+                <br/>
+                <button class="btn btn-outline-danger" onClick={() => deleteTask(taskItem)}>Delete</button>
+                <button class="btn btn-outline-dark" onClick={() => selectUpdate(taskItem)}>Update</button>
+                {props.searchMode ? <button class="btn btn-outline-dark" onClick={() => reset() }>Back</button> : null}
             </div>
         )
     }
@@ -76,7 +86,7 @@ function List(props){
     }
 
     const deleteTask = async taskItem => {
-        
+        setDeletedTask(taskItem.todo_title);
         const response = await fetch("http://localhost:3000/todos/" + taskItem.id, {
             method: "delete",
         })
@@ -92,33 +102,32 @@ function List(props){
 
     return(
         <div>
-            {props.searchMode && props.searchResults.length === 0 ? 
-                <div>
-                    <h1>No Tasks Found.</h1>
+            { deletedTask !== "" ? <Alert todo_title={deletedTask} /> : null }
+            { (props.searchMode && props.searchResults.length === 0) || (filterMode && listOfFilteredTasks.length === 0) ? 
+                <div class="no-tasks">
+                    <p class="fs-4">No Tasks Found.</p>
                     <br/>
                     <br/>
-                    <button onClick={() => reset() }>Back</button>
+                    <button class="btn btn-outline-dark" onClick={() => reset() }>Back</button>
                 </div> : props.searchMode ? 
                 <div>
-                    <h1>List of Tasks</h1>
+                    <br/>
                 </div> : 
-                <div>
-                    <h1>List of Tasks</h1><br/>
-                    <h3>Filter By:</h3>
+                <div class="filter">
                     <select onChange={filterTasks}>
                         <option value="">All</option>
                         <option value="school">School</option>
                         <option value="work">Work</option>
                         <option value="personal">Personal</option>
-                        <option value="urgent">Urgent</option>
                         <option value="important">Important</option>
                     </select>
                 </div> 
             }
-
-            {props.searchMode ? sortDate(props.searchResults).map(listTask) 
-                                : filterMode ? sortDate(listOfFilteredTasks).map(listTask) 
-                                        : sortDate(listOfTasks).map(listTask)}
+            <div class="list-tasks">
+                {props.searchMode ? sortDate(props.searchResults).map(listTask) 
+                                    : filterMode ? sortDate(listOfFilteredTasks).map(listTask) 
+                                            : sortDate(listOfTasks).map(listTask)}
+            </div>
 
             <Update taskItem={taskToUpdate}
                     getTasks={getTasks} 

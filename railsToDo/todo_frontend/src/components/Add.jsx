@@ -50,19 +50,21 @@ function Add(){
 
 
     return (
-        <div>
-            <h1>Add Task</h1>
+        <div class="update-field">
+            <br/><br/>
+            <p class="display-6">Add Task</p>
+            <br/><br/>
             <form>
-                <input onChange={handleChange} type="text" name="todo_title" placeholder="Task" value={newTask.todo_title}/><br/><br/>
-                <input onChange={handleChange} type="date" name="due_date" value={newTask.due_date} /><br/><br/>
+                <input class="form-control update-field" onChange={handleChange} type="text" name="todo_title" placeholder="Task" value={newTask.todo_title}/><br/><br/>
+                <input class="form-control update-field" onChange={handleChange} type="date" name="due_date" value={newTask.due_date} /><br/><br/>
                 <select onChange={handleChange} name="todo_tag" value={newTask.todo_tag}><br/><br/>
                     <option value="" selected disabled hidden>Add Tag</option>
                     <option value="school">School</option>
                     <option value="work">Work</option>
                     <option value="personal">Personal</option>
                     <option value="important">Important</option>
-                </select><br/><br/>
-                <button onClick={addTask}><Link to="/">Submit</Link></button>
+                </select><br/><br/><br/><br/>
+                <button class="btn btn-primary" onClick={addTask}><Link style={{color: 'white', textDecoration: 'none'}} to="/">Submit</Link></button>
             </form>
         </div>
     )

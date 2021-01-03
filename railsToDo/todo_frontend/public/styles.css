@@ -1,4 +1,82 @@
 .header{
-    background-color: #7a2323;
-    box-shadow: 0 0 0px 0 rgba(0, 0, 0, 0.3);
+    background-color: indianred;
+    box-shadow: 0px 5px 8px #888888;
+    border-radius: 0px 0px 4px 4px;
 }
+
+.navbar-brand {
+    color: white;
+    font-family: 'Raleway', sans-serif;
+}
+
+.nav-link {
+    color: snow;
+    
+}
+
+.nav-link:hover {
+    color: black;
+}
+
+.item {
+    background-color:  rgb(228, 198, 198);
+    width: 100%;
+    max-width: 600px;
+    min-width: 50px;
+    height: auto;
+    margin: 15px auto;
+    padding: 1rem;
+    border-radius: 7px;
+}
+
+.date {
+    float: right;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.item h5 {
+    float: left;
+}
+
+.badge {
+    background-color: rgb(57, 155, 170);
+}
+
+.btn {
+    margin: 0 3px;
+}
+
+.filter {
+    float: right;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+select {
+    border-radius: 7px;
+    padding: 3px 9px;
+}
+
+.list-tasks {
+    margin-top: 3%
+}
+
+.no-tasks {
+    margin-top: 3%;
+    margin-left: 3%;
+}
+
+.update-field {
+    width: 100%;
+    max-width: 600px;
+    min-width: 50px;
+    margin-top: 50px;
+    margin-bottom: 70px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 1rem;
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+
+

@@ -44,20 +44,22 @@ function Update(props){
         
         <div>
             {update_mode && 
-            <div>
-                <h1>Update Task</h1>
+            <div class="update-field">
+                <hr></hr>
+                <br/>
+                <p class="display-6">Update Task</p>
+                <br/>
                 <form>
-                    <input onChange={handleChange} type="text" name="todo_title" value={task_item.todo_title}/><br/><br/>
-                    <input onChange={handleChange} type="date" name="due_date" value={task_item.due_date} /><br/><br/>
+                    <input class="form-control update-field" onChange={handleChange} type="text" name="todo_title" value={task_item.todo_title}/><br/><br/>
+                    <input class="form-control update-field" onChange={handleChange} type="date" name="due_date" value={task_item.due_date} /><br/><br/>
                     <select onChange={handleChange} name="todo_tag" value={task_item.todo_tag}><br/><br/>
                         <option value="" selected disabled hidden>Tags</option>
                         <option value="school">School</option>
                         <option value="work">Work</option>
                         <option value="personal">Personal</option>
-                        <option value="urgent">Urgent</option>
                         <option value="important">Important</option>
                     </select><br/><br/>
-                    <button onClick={createUpdate}><Link to='/'>Update</Link></button>
+                    <button class="btn btn-primary" onClick={createUpdate}><Link style={{color: 'white', textDecoration: 'none'}} to='/'>Update</Link></button>
                 </form>
             </div>}
         </div>
