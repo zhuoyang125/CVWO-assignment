@@ -12,13 +12,21 @@ function Navbar(){
 
     const [searchResults, setSearchResults] = useState([]);
 
+    const [listOfTasks, setListOfTasks] = useState([]);
+
+    const getTasks = async () => {
+        const response = await fetch("https://todo-rails-backend-api.herokuapp.com/todos");
+        const data = await response.json();
+        setListOfTasks(data);
+    }
+
     function handleSearchChange(event){
         setQuery(event.target.value);
     }
 
     const searchTask = async event => {
         event.preventDefault();
-        const response = await fetch("http://localhost:3000/todos");
+        const response = await fetch("https://todo-rails-backend-api.herokuapp.com/todos");
         const data = await response.json();
 
         setSearchMode(true);
@@ -59,8 +67,11 @@ function Navbar(){
         <Switch>
             <Route exact path="/" render={()=> <List searchResults={searchResults} 
                                                      searchMode={searchMode} 
-                                                     setSearchMode={setSearchMode} /> } />
-            <Route component={Add} path="/add" />
+                                                     setSearchMode={setSearchMode}
+                                                     listOfTasks={listOfTasks}
+                                                     setListOfTasks={setListOfTasks}
+                                                     getTasks={getTasks} /> } />
+            <Route path="/add" render={() => <Add getTasks={getTasks} />} />
         </Switch>
     </div>
 

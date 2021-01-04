@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Update(props){
@@ -21,7 +21,7 @@ function Update(props){
     const createUpdate = async event => {
         event.preventDefault();
 
-        const response = await fetch("http://localhost:3000/todos/" + task_item.id, {
+        const response = await fetch("https://todo-rails-backend-api.herokuapp.com/todos/" + task_item.id, {
             method: "put",
             headers: {
                 "Content-Type": "application/json",

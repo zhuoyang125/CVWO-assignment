@@ -16,7 +16,6 @@ function List(props){
         todo_tag:"",
     });
 
-    const [listOfTasks, setListOfTasks] = useState([]);
 
     const [listOfFilteredTasks, setListOfFilteredTasks] = useState([]);
 
@@ -32,19 +31,13 @@ function List(props){
     function filterTasks(event){
         setFilterMode(true);
         if (event.target.value === "") {
-            setListOfFilteredTasks(listOfTasks);
+            setListOfFilteredTasks(props.listOfTasks);
         } else {
-            const filtered = listOfTasks.filter(item => {
+            const filtered = props.listOfTasks.filter(item => {
                 return item.todo_tag.toUpperCase() === event.target.value.toUpperCase();
             });
             setListOfFilteredTasks(filtered);
         }
-    }
-
-    const getTasks = async () => {
-        const response = await fetch("http://localhost:3000/todos");
-        const data = await response.json();
-        setListOfTasks(data);
     }
 
     function selectUpdate(taskItem) {
@@ -87,24 +80,29 @@ function List(props){
 
     const deleteTask = async taskItem => {
         setDeletedTask(taskItem.todo_title);
-        const response = await fetch("http://localhost:3000/todos/" + taskItem.id, {
+        const response = await fetch("https://todo-rails-backend-api.herokuapp.com/todos/" + taskItem.id, {
             method: "delete",
         })
         reset();
-        await getTasks();
+        await props.getTasks();
 
     }
 
    
 
-    useEffect(() => {getTasks()}, []);
+    useEffect(() => {props.getTasks()}, []);
 
 
     return(
         <div>
             { deletedTask !== "" ? <Alert todo_title={deletedTask} /> : null }
+            <div class="heading">
+                <h1 style={{color: '#585858'}} class="display-6">Tasks...</h1>
+            </div>
+                
+            
             { (props.searchMode && props.searchResults.length === 0) || (filterMode && listOfFilteredTasks.length === 0) ? 
-                <div class="no-tasks">
+                <div class="heading">
                     <p class="fs-4">No Tasks Found.</p>
                     <br/>
                     <br/>
@@ -112,7 +110,7 @@ function List(props){
                 </div> : props.searchMode ? 
                 <div>
                     <br/>
-                </div> : 
+                </div> : props.listOfTasks.length > 0 ?
                 <div class="filter">
                     <select onChange={filterTasks}>
                         <option value="">All</option>
@@ -121,16 +119,16 @@ function List(props){
                         <option value="personal">Personal</option>
                         <option value="important">Important</option>
                     </select>
-                </div> 
+                </div> : null
             }
             <div class="list-tasks">
                 {props.searchMode ? sortDate(props.searchResults).map(listTask) 
                                     : filterMode ? sortDate(listOfFilteredTasks).map(listTask) 
-                                            : sortDate(listOfTasks).map(listTask)}
+                                            : sortDate(props.listOfTasks).map(listTask)}
             </div>
 
             <Update taskItem={taskToUpdate}
-                    getTasks={getTasks} 
+                    getTasks={props.getTasks} 
                     update_mode={updateMode}
                     setUpdateMode={setUpdateMode}
                     setTaskToUpdate={setTaskToUpdate}

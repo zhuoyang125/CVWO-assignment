@@ -1,20 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function Add(){
+function Add(props){
 
     const [newTask, setNewTask] = useState({
         todo_title:"",
         due_date:"",
         todo_tag:""
     });
-    const [listOfTasks, setListOfTasks] = useState([]);
-
-    const getTasks = async () => {
-        const response = await fetch("http://localhost:3000/todos");
-        const data = await response.json();
-        setListOfTasks(data);
-    }
 
     function handleChange(event){
         const {name, value} = event.target;
@@ -30,7 +23,7 @@ function Add(){
     const addTask = async event => {
         event.preventDefault();
 
-        const response = await fetch("http://localhost:3000/todos", {
+        const response = await fetch("https://todo-rails-backend-api.herokuapp.com/todos", {
             method: "post",
             headers: {
                 "Content-Type": "application/json", 
@@ -38,12 +31,12 @@ function Add(){
             body: JSON.stringify(newTask),
         });
 
-        await getTasks();
+        await props.getTasks();
 
         setNewTask({
             todo_title:"",
             due_date:"",
-            todo_tag:""
+            todo_tag:"",
         });
     }
 

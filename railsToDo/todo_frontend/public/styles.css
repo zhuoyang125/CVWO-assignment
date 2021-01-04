@@ -4,6 +4,15 @@
     border-radius: 0px 0px 4px 4px;
 }
 
+.heading {
+    width: 100%;
+    max-width: 600px;
+    min-width: 50px;
+    height: auto;
+    margin: 35px auto;
+
+}
+
 .navbar-brand {
     color: white;
     font-family: 'Raleway', sans-serif;
@@ -61,10 +70,6 @@ select {
     margin-top: 3%
 }
 
-.no-tasks {
-    margin-top: 3%;
-    margin-left: 3%;
-}
 
 .update-field {
     width: 100%;
