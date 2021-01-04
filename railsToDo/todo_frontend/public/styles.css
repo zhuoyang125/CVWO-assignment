@@ -55,11 +55,24 @@
     margin: 0 3px;
 }
 
-.filter {
-    float: right;
-    margin-right: 10%;
-    margin-left: 10%;
+@media (max-width: 1065px) {
+    .filter {
+        float: right;
+        margin-right: 10%;
+        margin-left: 10%;
+        margin-top: -60px;
+    }
 }
+
+@media (min-width: 1066px) {
+    .filter {
+        float: right;
+        margin-right: 10%;
+        margin-left: 10%;
+    }
+}
+
+
 
 select {
     border-radius: 7px;
