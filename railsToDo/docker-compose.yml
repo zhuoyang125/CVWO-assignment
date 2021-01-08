@@ -1,0 +1,24 @@
+version: '3'
+services:
+  frontend:
+    build: ./todo_frontend/
+    volumes: 
+      - ./todo_frontend:/frontend
+    command: npm start
+    ports:
+      - 5000:5000
+    depends_on:
+      - webapp
+  db:
+    image: keinos/sqlite3:latest
+  webapp:
+    build: ./todo_backend/
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - ./todo_backend:/rails-api
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+  
+  
