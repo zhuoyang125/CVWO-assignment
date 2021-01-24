@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+
 
 function Add(props){
 
     const [newTask, setNewTask] = useState({
         todo_title:"",
-        due_date:"",
+        due_date: new Date(),
         todo_tag:""
     });
 
@@ -19,6 +27,18 @@ function Add(props){
             }
         });
     }
+
+    function handleDateChange(newDate) {
+        
+        setNewTask(prevValue => {
+            return {
+                ...prevValue,
+                due_date: newDate,
+
+            }
+        })
+    }
+
 
     const addTask = async event => {
         event.preventDefault();
@@ -35,7 +55,7 @@ function Add(props){
 
         setNewTask({
             todo_title:"",
-            due_date:"",
+            due_date: new Date(),
             todo_tag:"",
         });
     }
@@ -48,15 +68,21 @@ function Add(props){
             <p class="display-6">Add Task</p>
             <br/><br/>
             <form>
-                <input class="form-control update-field" onChange={handleChange} type="text" name="todo_title" placeholder="Task" value={newTask.todo_title}/><br/><br/>
-                <input class="form-control update-field" onChange={handleChange} type="date" name="due_date" value={newTask.due_date} /><br/><br/>
-                <select onChange={handleChange} name="todo_tag" value={newTask.todo_tag}><br/><br/>
-                    <option value="" selected disabled hidden>Add Tag</option>
-                    <option value="school">School</option>
-                    <option value="work">Work</option>
-                    <option value="personal">Personal</option>
-                    <option value="important">Important</option>
-                </select><br/><br/><br/><br/>
+                <TextField id="standard-basic" label="Task Name" onChange={handleChange} name="todo_title" /><br/><br/><br/>
+                <DatePicker className="form-control update-field" dateFormat="dd/MM/yyyy" selected={newTask.due_date} utcOffset={0} onChange={handleDateChange} name="due_date" /><br/><br/><br/>
+                <InputLabel id="demo-simple-select-label">Tag</InputLabel>
+                <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={newTask.todo_tag}
+                name="todo_tag"
+                onChange={handleChange}
+                >
+                <MenuItem value={"school"}>school</MenuItem>
+                <MenuItem value={"work"}>work</MenuItem>
+                <MenuItem value={"personal"}>personal</MenuItem>
+                <MenuItem value={"important"}>important</MenuItem>
+                </Select><br/><br/>
                 <button class="btn btn-primary" onClick={addTask}><Link style={{color: 'white', textDecoration: 'none'}} to="/">Submit</Link></button>
             </form>
         </div>

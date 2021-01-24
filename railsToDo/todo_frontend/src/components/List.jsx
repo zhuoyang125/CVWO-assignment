@@ -16,10 +16,10 @@ function List(props){
         todo_tag:"",
     });
 
-
     const [listOfFilteredTasks, setListOfFilteredTasks] = useState([]);
 
     const [deletedTask, setDeletedTask] = useState("");
+    
 
     function reset(){
         setUpdateMode(false);
