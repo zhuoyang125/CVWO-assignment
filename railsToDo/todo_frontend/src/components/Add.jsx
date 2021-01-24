@@ -33,7 +33,7 @@ function Add(props){
         setNewTask(prevValue => {
             return {
                 ...prevValue,
-                due_date: newDate,
+                due_date: new Date(newDate.getTime() - newDate.getTimezoneOffset() * 60000),
 
             }
         })
