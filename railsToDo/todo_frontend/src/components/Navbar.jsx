@@ -15,7 +15,7 @@ function Navbar(){
     const [listOfTasks, setListOfTasks] = useState([]);
 
     const getTasks = async () => {
-        const response = await fetch("https://todo-rails-backend-api.herokuapp.com/todos");
+        const response = await fetch("http://localhost:3000/todos");
         const data = await response.json();
         setListOfTasks(data);
     }
@@ -26,7 +26,7 @@ function Navbar(){
 
     const searchTask = async event => {
         event.preventDefault();
-        const response = await fetch("https://todo-rails-backend-api.herokuapp.com/todos");
+        const response = await fetch("http://localhost:3000/todos");
         const data = await response.json();
 
         setSearchMode(true);

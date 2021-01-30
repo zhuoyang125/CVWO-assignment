@@ -43,7 +43,7 @@ function Add(props){
     const addTask = async event => {
         event.preventDefault();
 
-        const response = await fetch("https://todo-rails-backend-api.herokuapp.com/todos", {
+        const response = await fetch("http://localhost:3000/todos", {
             method: "post",
             headers: {
                 "Content-Type": "application/json", 

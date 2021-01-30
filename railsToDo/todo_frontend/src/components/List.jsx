@@ -80,7 +80,7 @@ function List(props){
 
     const deleteTask = async taskItem => {
         setDeletedTask(taskItem.todo_title);
-        const response = await fetch("https://todo-rails-backend-api.herokuapp.com/todos/" + taskItem.id, {
+        const response = await fetch("http://localhost:3000/todos/" + taskItem.id, {
             method: "delete",
         })
         reset();
